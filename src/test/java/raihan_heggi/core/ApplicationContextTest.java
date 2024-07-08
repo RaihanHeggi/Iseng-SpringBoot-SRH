@@ -1,6 +1,5 @@
 package raihan_heggi.core;
 
-import org.apache.commons.logging.Log;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;

@@ -11,9 +11,16 @@ import raihan_heggi.core.data.Foo;
 public class BeanConfiguration {
 
     @Bean
-    public Foo foo() {
+    public Foo foo1() {
         Foo foo = new Foo();
-        log.info("Creating Foo()");
+        log.info("Creating Foo 1");
+        return foo;
+    }
+
+    @Bean
+    public Foo foo2(){
+        Foo foo = new Foo();
+        log.info("Creating Foo 2");
         return foo;
     }
 }
