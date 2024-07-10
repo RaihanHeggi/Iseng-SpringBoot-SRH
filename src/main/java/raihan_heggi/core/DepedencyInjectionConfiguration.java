@@ -1,7 +1,9 @@
 package raihan_heggi.core;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 import raihan_heggi.core.data.Bar;
 import raihan_heggi.core.data.Foo;
@@ -9,20 +11,26 @@ import raihan_heggi.core.data.FooBar;
 
 @Configuration
 public class DepedencyInjectionConfiguration {
-    
+
+    @Primary
     @Bean
-    public Foo foo(){
+    public Foo fooFirst() {
         return new Foo();
     }
 
     @Bean
-    public Bar bar(){
+    public Foo fooSecond() {
+        return new Foo();
+    }
+
+    @Bean
+    public Bar bar() {
         return new Bar();
     }
 
     @Bean
-    public FooBar foobar(Foo foo, Bar bar){
-        return FooBar(foo, bar)
+    public FooBar foobar(@Qualifier("fooSecond") Foo foo, Bar bar) {
+        return new FooBar(foo, bar);
     }
-    
+
 }

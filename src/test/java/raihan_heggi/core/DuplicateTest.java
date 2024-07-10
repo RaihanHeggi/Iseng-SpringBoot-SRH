@@ -11,9 +11,9 @@ import raihan_heggi.core.data.Foo;
 
 @Configuration
 public class DuplicateTest {
-    
+
     @Test
-    void testDuplicate(){
+    void testDuplicate() {
         ApplicationContext context = new AnnotationConfigApplicationContext(BeanConfiguration.class);
 
         Assertions.assertThrows(NoUniqueBeanDefinitionException.class, () -> {
@@ -22,13 +22,14 @@ public class DuplicateTest {
     }
 
     @Test
-    void getBean(){
+    void getBean() {
         ApplicationContext context = new AnnotationConfigApplicationContext(BeanConfiguration.class);
-        
+
         Foo foo = context.getBean(Foo.class);
         Foo foo1 = context.getBean("foo1", Foo.class);
         Foo foo2 = context.getBean("foo2", Foo.class);
-    
+
+        Assertions.assertSame(foo, foo1);
         Assertions.assertNotSame(foo1, foo2);
     }
 
