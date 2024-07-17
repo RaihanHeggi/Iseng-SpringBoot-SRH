@@ -8,6 +8,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import raihan_heggi.core.data.Bar;
 import raihan_heggi.core.data.Foo;
+import raihan_heggi.core.data.MultiFoo;
 import raihan_heggi.core.repository.ProductRepository;
 import raihan_heggi.core.repository.ConfigureRepository;
 import raihan_heggi.core.repository.CustomerRepository;
@@ -50,9 +51,18 @@ public class ComponentScanTest {
     @Test
     void testFieldDI(){
         CustomerService customerService = applicationContext.getBean(CustomerService.class);
-        CustomerRepository customerRepository = applicationContext.getBean(CustomerRepository.class);
+        CustomerRepository normalCustomerRepository = applicationContext.getBean("normalCustomerRepository", CustomerRepository.class);
+        CustomerRepository premiumCustomerRepository = applicationContext.getBean("premiumCustomerRepository", CustomerRepository.class);
 
-        Assertions.assertSame(customerRepository, customerService.getCustomerRepository());
+        Assertions.assertSame(normalCustomerRepository, customerService.getNormalCustomerRepository());
+        Assertions.assertSame(premiumCustomerRepository, customerService.getPremiumCustomerRepository());
+    }
+
+    @Test
+    void testObjectProvider(){
+        MultiFoo multiFoo = applicationContext.getBean(MultiFoo.class);
+
+        Assertions.assertEquals(3, multiFoo.getFoos().size());
     }
 
 }
