@@ -10,6 +10,8 @@ import raihan_heggi.core.data.Bar;
 import raihan_heggi.core.data.Foo;
 import raihan_heggi.core.repository.ProductRepository;
 import raihan_heggi.core.repository.ConfigureRepository;
+import raihan_heggi.core.repository.CustomerRepository;
+import raihan_heggi.core.service.CustomerService;
 import raihan_heggi.core.service.ProductService;
 
 public class ComponentScanTest {
@@ -43,6 +45,14 @@ public class ComponentScanTest {
         ConfigureRepository configureRepository = applicationContext.getBean(ConfigureRepository.class);
 
         Assertions.assertSame(configureRepository, productService.getConfigureRepository());
+    }
+
+    @Test
+    void testFieldDI(){
+        CustomerService customerService = applicationContext.getBean(CustomerService.class);
+        CustomerRepository customerRepository = applicationContext.getBean(CustomerRepository.class);
+
+        Assertions.assertSame(customerRepository, customerService.getCustomerRepository());
     }
 
 }
