@@ -1,5 +1,6 @@
 package raihan_heggi.core;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -7,6 +8,9 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import raihan_heggi.core.data.Bar;
 import raihan_heggi.core.data.Foo;
+import raihan_heggi.core.repository.ProductRepository;
+import raihan_heggi.core.repository.ConfigureRepository;
+import raihan_heggi.core.service.ProductService;
 
 public class ComponentScanTest {
     
@@ -14,13 +18,31 @@ public class ComponentScanTest {
 
     @BeforeEach
     void setUp(){
-        applicationContext = new AnnotationConfigApplicationContext(ScanConfiguration.class);
+        // applicationContext = new AnnotationConfigApplicationContext(ScanConfiguration.class);
+        applicationContext = new AnnotationConfigApplicationContext(ComponentConfiguration.class);
+        applicationContext.registerShutdownHook();
     }
 
     @Test
     void testScan(){
         Foo foo = applicationContext.getBean(Foo.class);
         Bar bar = applicationContext.getBean(Bar.class);
+    }
+
+    @Test
+    void testConstructorDI(){
+        ProductService productService = applicationContext.getBean(ProductService.class);
+        ProductRepository productRepository = applicationContext.getBean(ProductRepository.class);
+
+        Assertions.assertSame(productRepository, productService.getProductRepository());
+    }
+
+    @Test
+    void testSetterDI(){
+        ProductService productService = applicationContext.getBean(ProductService.class);
+        ConfigureRepository configureRepository = applicationContext.getBean(ConfigureRepository.class);
+
+        Assertions.assertSame(configureRepository, productService.getConfigureRepository());
     }
 
 }
