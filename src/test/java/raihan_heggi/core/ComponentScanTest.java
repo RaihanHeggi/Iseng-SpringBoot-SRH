@@ -8,26 +8,19 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import raihan_heggi.core.data.Bar;
 import raihan_heggi.core.data.Foo;
 
-public class ImportTest {
-
+public class ComponentScanTest {
+    
     private ConfigurableApplicationContext applicationContext;
 
     @BeforeEach
     void setUp(){
-        applicationContext = new AnnotationConfigApplicationContext(mainFoobarConfiguration.class);
-        applicationContext.registerShutdownHook();
+        applicationContext = new AnnotationConfigApplicationContext(ScanConfiguration.class);
     }
 
-    
     @Test
-    void testImport(){
+    void testScan(){
         Foo foo = applicationContext.getBean(Foo.class);
         Bar bar = applicationContext.getBean(Bar.class);
-        
     }
 
-
 }
-
-
-
