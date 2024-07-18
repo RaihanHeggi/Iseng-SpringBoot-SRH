@@ -16,24 +16,25 @@ import raihan_heggi.core.service.CustomerService;
 import raihan_heggi.core.service.ProductService;
 
 public class ComponentScanTest {
-    
+
     private ConfigurableApplicationContext applicationContext;
 
     @BeforeEach
-    void setUp(){
-        // applicationContext = new AnnotationConfigApplicationContext(ScanConfiguration.class);
+    void setUp() {
+        // applicationContext = new
+        // AnnotationConfigApplicationContext(ScanConfiguration.class);
         applicationContext = new AnnotationConfigApplicationContext(ComponentConfiguration.class);
         applicationContext.registerShutdownHook();
     }
 
     @Test
-    void testScan(){
+    void testScan() {
         Foo foo = applicationContext.getBean(Foo.class);
         Bar bar = applicationContext.getBean(Bar.class);
     }
 
     @Test
-    void testConstructorDI(){
+    void testConstructorDI() {
         ProductService productService = applicationContext.getBean(ProductService.class);
         ProductRepository productRepository = applicationContext.getBean(ProductRepository.class);
 
@@ -41,7 +42,7 @@ public class ComponentScanTest {
     }
 
     @Test
-    void testSetterDI(){
+    void testSetterDI() {
         ProductService productService = applicationContext.getBean(ProductService.class);
         ConfigureRepository configureRepository = applicationContext.getBean(ConfigureRepository.class);
 
@@ -49,17 +50,19 @@ public class ComponentScanTest {
     }
 
     @Test
-    void testFieldDI(){
+    void testFieldDI() {
         CustomerService customerService = applicationContext.getBean(CustomerService.class);
-        CustomerRepository normalCustomerRepository = applicationContext.getBean("normalCustomerRepository", CustomerRepository.class);
-        CustomerRepository premiumCustomerRepository = applicationContext.getBean("premiumCustomerRepository", CustomerRepository.class);
+        CustomerRepository normalCustomerRepository = applicationContext.getBean("normalCustomerRepository",
+                CustomerRepository.class);
+        CustomerRepository premiumCustomerRepository = applicationContext.getBean("premiumCustomerRepository",
+                CustomerRepository.class);
 
         Assertions.assertSame(normalCustomerRepository, customerService.getNormalCustomerRepository());
         Assertions.assertSame(premiumCustomerRepository, customerService.getPremiumCustomerRepository());
     }
 
     @Test
-    void testObjectProvider(){
+    void testObjectProvider() {
         MultiFoo multiFoo = applicationContext.getBean(MultiFoo.class);
 
         Assertions.assertEquals(3, multiFoo.getFoos().size());
