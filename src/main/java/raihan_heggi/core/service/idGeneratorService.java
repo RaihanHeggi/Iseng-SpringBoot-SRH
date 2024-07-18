@@ -13,6 +13,9 @@ import raihan_heggi.core.generator.idGenerator;
 @Component
 public class idGeneratorService implements BeanPostProcessor {
 
+    //Untuk Ordered bisa menggunakan Ordered kemudian modifikasi getOrderednya
+    
+    
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
         log.info("ID Generator for Bean : {}", beanName);
