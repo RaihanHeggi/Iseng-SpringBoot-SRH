@@ -4,6 +4,7 @@ import org.springframework.beans.factory.FactoryBean;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
+// Proses pembuatan bean dari PaymentClient agar bisa dimodifikasi dan digunakan oleh sistem
 @Component("paymentGatewayClient")
 public class PaymentGatewayClientBean implements FactoryBean<PaymentGatewayClient> {
 
@@ -12,8 +13,8 @@ public class PaymentGatewayClientBean implements FactoryBean<PaymentGatewayClien
         PaymentGatewayClient client = new PaymentGatewayClient();
         client.setEndpoint("https://example.com");
         client.setPrivateKey("private");
-        client.setPublicKey("public");
-        return client;
+        client.setPublicKey("public"); 
+        return client; 
     }
 
     @Override
